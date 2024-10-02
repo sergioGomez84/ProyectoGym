@@ -13,7 +13,7 @@ public class HealthTracking {
     @Column(name = "health_tracking_id")
     private Long healthTrackingId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "membership_id", nullable = false)
     private Membership membership;
 

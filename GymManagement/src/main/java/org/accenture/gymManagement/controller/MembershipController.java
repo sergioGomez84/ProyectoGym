@@ -19,12 +19,12 @@ public class MembershipController {
         return membershipService.getAllMemberships();
     }
 
-    @GetMapping("/find")
-    public String homePage() {
-        Optional<Membership> membership = membershipService.findById(id);
-
-        return "home";
-    }
+//    @GetMapping("/find")
+//    public String homePage() {
+//        Optional<Membership> membership = membershipService.findById(id);
+//
+//        return "home";
+//    }
 
     @GetMapping("/find/{id}")
     public List<Membership> membershipById(Long id) {
@@ -39,16 +39,16 @@ public class MembershipController {
         return membershipService.addMembership(membership);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Membership> updateMembership(@PathVariable Long id, @RequestBody Membership membershipDetails) {
-        Membership updatedMembership = membershipService.updateMembership(id, membershipDetails);
-
-        if (updatedMembership != null) {
-            return ResponseEntity.ok(updatedMembership);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
+//    @PutMapping("/update/{id}")
+//    public ResponseEntity<Membership> updateMembership(@PathVariable Long id, @RequestBody Membership membershipDetails) {
+//        Membership updatedMembership = membershipService.updateMembership(id, membershipDetails);
+//
+//        if (updatedMembership != null) {
+//            return ResponseEntity.ok(updatedMembership);
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteMembership(@PathVariable Long id) {
