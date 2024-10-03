@@ -20,9 +20,12 @@
     </properties>
 
     <modules>
-        <module>GymManagement</module>
-        <module>HealthTrackingToGym</module>
+        <module>health-tracking-to-gym</module>
+        <module>gym-management</module>
+        <module>class-and-trainer-management</module>
         <module>config-service</module>
+        <module>discovery-service</module>
+        <module>gateway-service</module>
     </modules>
     <dependencyManagement>
         <dependencies>
