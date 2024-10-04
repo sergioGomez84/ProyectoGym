@@ -1,0 +1,52 @@
+version: "3.7"
+services:
+  config-service:
+    image: accenture/config-service:0.0.1-SNAPSHOT
+    ports:
+      - "8088:8088"
+    healthcheck:
+      test: curl --fail http://localhost:8088/gym/docker  || exit 1
+      interval: 5s
+      timeout: 2s
+      retries: 3
+  discovery-service:
+    image: accenture/discovery-service:0.0.1-SNAPSHOT
+    ports:
+      - "8761:8761"
+    depends_on:
+      config-service:
+        condition: service_healthy
+    links:
+      - config-service
+    healthcheck:
+      test: curl --fail http://localhost:8761/eureka/v2/apps || exit 1
+      interval: 4s
+      timeout: 2s
+      retries: 3
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+  gym-management:
+    image: accenture/gym-management:0.0.1-SNAPSHOT
+    ports:
+      - "8080"
+    depends_on:
+      discovery-service:
+        condition: service_healthy
+    links:
+      - config-service
+      - discovery-service
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+  gateway-service:
+    image: accenture/gateway-service:0.0.1-SNAPSHOT
+    ports:
+      - "8060:8060"
+    depends_on:
+      discovery-service:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    links:
+      - config-service
+      - discovery-service
+      - gym-management
